@@ -1,6 +1,8 @@
 # Node.js
 node_modules/
 
+# Vipe deps
+.vite/
 # Build output
 /dist/
 
