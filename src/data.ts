@@ -1,7 +1,7 @@
 import { Product } from "./type/Product";
 export const sampleProducts: Product[] = [
   {
-    name: "Airpods Wireless Bluetooth Headphones",
+    name: "Airpods Wireless Headphones",
     slug: "airpods-wireless-bluetooth-headphones",
     image: "/images/airpods.jpeg",
     category: "Electronics",
@@ -14,7 +14,7 @@ export const sampleProducts: Product[] = [
     numReviews: 12,
   },
   {
-    name: "iPhone 11 Pro 256GB Memory",
+    name: "iPhone 11 Pro ",
     slug: "iphone-11-pro-256gb-memory",
     image: "/images/iphone.jpg",
     category: "Electronics",
@@ -40,7 +40,7 @@ export const sampleProducts: Product[] = [
     numReviews: 12,
   },
   {
-    name: "Sony Playstation 4 Pro White Version",
+    name: "Sony Playstation 4 Pro ",
     slug: "sony-playstation-4-pro-white-version",
     image: "/images/playstation.webp",
     category: "Electronics",
