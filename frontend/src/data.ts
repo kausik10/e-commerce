@@ -1,5 +1,5 @@
 import { Product } from "./type/Product";
-export const sampleProducts: Product[] = [
+export const products: Product[] = [
   {
     name: "Airpods Wireless Headphones",
     slug: "airpods-wireless-bluetooth-headphones",
