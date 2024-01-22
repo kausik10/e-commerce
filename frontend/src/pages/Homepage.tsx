@@ -6,6 +6,7 @@ import { getError } from "../utils";
 import { ApiError } from "../type/ApiErros";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import { Helmet } from "react-helmet-async";
 
 type State = {
   products: Product[];
@@ -72,6 +73,9 @@ const Homepage = () => {
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <ul className="flex flex-wrap sm:justify-start md:justify-center items-start sm:flex-1 md:flex-2 lg:flex-3  gap-5 ">
+      <Helmet>
+        <title>KE-Commerce</title>
+      </Helmet>
       {products.map((product) => (
         <li
           key={product.slug}
