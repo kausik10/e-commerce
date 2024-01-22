@@ -1,7 +1,7 @@
 import { Product } from "./type/Product";
 export const sampleProducts: Product[] = [
   {
-    name: "Airpods Wireless Headphones",
+    name: "Airpods Wireless",
     slug: "airpods-wireless-bluetooth-headphones",
     image: "/images/airpods.jpeg",
     category: "Electronics",
@@ -27,20 +27,20 @@ export const sampleProducts: Product[] = [
     numReviews: 8,
   },
   {
-    name: "Cannon EOS 80D DSLR Camera",
+    name: "Cannon EOS80D DSLR",
     slug: "cannon-eos-80d-dslr-camera",
     image: "/images/camera.webp",
     category: "Electronics",
     brand: "Cannon",
     price: 929.99,
-    countInStock: 5,
+    countInStock: 0,
     description:
       "Characterized by versatile imaging specs, the Canon EOS 80D further clarifies itself using a pair of robust focusing systems and an intuitive design",
     rating: 3,
     numReviews: 12,
   },
   {
-    name: "Sony Playstation 4 Pro ",
+    name: "Sony Playstation 4-Pro ",
     slug: "sony-playstation-4-pro-white-version",
     image: "/images/playstation.webp",
     category: "Electronics",
