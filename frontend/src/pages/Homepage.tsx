@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from "react";
-// import { products } from "../data";
-import { Link } from "react-router-dom";
+// impo Link } from "react-router-dom";
 import { Product } from "../type/Product";
+import ProductItem from "../components/ProductItem";
 import { getError } from "../utils";
 import { ApiError } from "../type/ApiErros";
 import LoadingBox from "../components/LoadingBox";
@@ -71,23 +71,13 @@ const Homepage = () => {
   ) : error ? (
     <MessageBox variant="danger">{error}</MessageBox>
   ) : (
-    <ul className="flex flex-wrap  justify-center items-center sm:flex-1 md:flex-2 lg:flex-3  gap-5 ">
+    <ul className="flex flex-wrap sm:justify-start md:justify-center items-start sm:flex-1 md:flex-2 lg:flex-3  gap-5 ">
       {products.map((product) => (
         <li
           key={product.slug}
-          className="flex flex-col justify-between items-center"
+          className="flex flex-col justify-between items-start"
         >
-          <Link to={`/product/${product.slug}`}>
-            <img
-              src={product.image}
-              alt={product.name}
-              className="max-w-[320px] w-full h-[320px] object-contain"
-            />
-            <div>
-              <h2 className="text-xl lg:text-2xl underline">{product.name}</h2>
-              <p className="text-xl">${product.price}</p>
-            </div>
-          </Link>
+          <ProductItem product={product} />
         </li>
       ))}
     </ul>
