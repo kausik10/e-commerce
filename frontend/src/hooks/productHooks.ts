@@ -15,3 +15,16 @@ export const useGetProductsQuery = () =>
       }
     },
   });
+export const useGetProductDetailsBySlugQuery = (slug: string) =>
+  useQuery({
+    queryKey: ["products", slug],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get<Product>(`api/products/${slug}`);
+        return response.data;
+      } catch (error) {
+        console.error("API Error:", error);
+        throw error;
+      }
+    },
+  });
