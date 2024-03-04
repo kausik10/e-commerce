@@ -5,6 +5,8 @@
     "target": "es2020",
     "noImplicitAny": true,
     "outDir": "./build",
-    "strict": true
+    "strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }

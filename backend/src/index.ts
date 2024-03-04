@@ -1,6 +1,23 @@
-import express, { Request, Response } from "express";
-import { sampleProducts } from "./data";
+import express from "express";
 import cors from "cors";
+import dotenv from "dotenv";
+import { mongoose } from "@typegoose/typegoose";
+import { productRouter } from "./routers/productRouter";
+import { seedRouter } from "./routers/seedRouter";
+dotenv.config();
+
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/ke-commerce";
+mongoose.set("strictQuery", true);
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB", error.message);
+  });
 
 const app = express();
 
@@ -10,12 +27,9 @@ app.use(
     origin: ["http://localhost:3000"],
   }),
 );
-app.get("/api/products", (req: Request, res: Response) => {
-  res.json(sampleProducts);
-});
-app.get("/api/products/:slug", (req: Request, res: Response) => {
-  res.json(sampleProducts.find((product) => product.slug === req.params.slug));
-});
+
+app.use("/api/products", productRouter);
+app.use("/api/seed", seedRouter);
 
 const PORT = 4000;
 app.listen(PORT, () => {
