@@ -1,5 +1,6 @@
 import React from "react";
 import { NavItems } from "../type/NavItems";
+import { ModeToggle } from "./mode-toggle";
 const navItems: NavItems[] = [
   { id: 1, label: "Home" },
   { id: 2, label: "Products" },
@@ -14,10 +15,13 @@ const Navbar = () => {
     </li>
   ));
   return (
-    <header className="w-full h-24 bg-gray-800 text-white flex justify-center items-center">
-      <nav className="w-[80%] flex items-center justify-between text-white">
-        <div className="text-2xl font-bold text-white">KE-commerce</div>
+    <header className="w-full h-20 flex justify-center border-b-2  shadow-lg items-center">
+      <nav className="w-[80%] flex items-center justify-between ">
+        <div className="text-2xl font-bold ">
+          <p>KE-commerce</p>
+        </div>
         <ul className="style-none flex gap-10">{navList}</ul>
+        <ModeToggle />
       </nav>
     </header>
   );
