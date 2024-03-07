@@ -3,10 +3,10 @@ import "./index.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
-
+import { StoreProvider } from "./Store";
 function App() {
   return (
-    <>
+    <StoreProvider>
       <div className="w-full flex flex-col">
         <Navbar />
 
@@ -16,7 +16,7 @@ function App() {
 
         <Footer />
       </div>
-    </>
+    </StoreProvider>
   );
 }
 

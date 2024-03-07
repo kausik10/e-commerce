@@ -47,7 +47,11 @@ const ProductPage = () => {
           </div>
         </div>
       </div>
+
       <div className="flex flex-col w-[20%] justify-between gap-3 items-start">
+        <div>
+          <p className="mt-2">Price: ${product.price}</p>
+        </div>
         <div>
           {product.countInStock > 0 ? (
             <Badge variant="outline">In Stock</Badge>
