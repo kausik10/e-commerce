@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Badge } from "@/component/ui/badge";
 import LoadingBox from "@/components/LoadingBox";
 import MessageBox from "@/components/MessageBox";
@@ -8,7 +8,10 @@ import { ApiError } from "@/type/ApiErros";
 import { getError } from "@/utils";
 import { Button } from "@/component/ui/button";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Store } from "@/Store";
+import { convertProductToCartItem } from "../utils";
+import { toast } from "@/component/ui/use-toast";
 
 const ProductPage = () => {
   const params = useParams();
@@ -18,6 +21,35 @@ const ProductPage = () => {
     isLoading,
     error,
   } = useGetProductDetailsBySlugQuery(slug!);
+
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
+  const navigate = useNavigate();
+
+  const addToCartHandler = () => {
+    const existItem = cart.cartItems.find((x) => x._id === product!._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    if (product!.countInStock < quantity) {
+      toast({
+        variant: "destructive",
+        title: "Out of Stock",
+        description: "The product is out of stock",
+      });
+      return;
+    }
+    dispatch({
+      type: "ADD_TO_CART",
+      payload: { ...convertProductToCartItem(product!), quantity },
+    });
+    toast({
+      variant: "success",
+      title: "Added to Cart",
+      description: "The product has been added to the cart",
+    });
+
+    navigate(`/cart`);
+  };
+
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
@@ -26,21 +58,20 @@ const ProductPage = () => {
     <MessageBox variant="danger">Product Not Found</MessageBox>
   ) : (
     <div className="mt-3 flex flex-row sm:justify-start items-start sm:flex-1 md:flex-2 lg:flex-3  gap-5 ">
-      <div className="">
+      <div>
         <img className="max-w-[100%]" src={product.image} alt={product.name} />
       </div>
-      <div className="">
+      <div>
         <div className="flex flex-wrap flex-col gap-5">
           <div>
             <Helmet>
               <title>{product.name}</title>
             </Helmet>
-            <h1 className="font-bold text-black text-4xl">{product.name}</h1>
+            <h1 className="font-bold  text-4xl">{product.name}</h1>
           </div>
           <div>
             <Rating rating={product.rating} numReviews={product.numReviews} />
           </div>
-          <div>Price: ${product.price} </div>
           <div>
             <em> Description: </em>
             <p className="mt-2">{product.description}</p>
@@ -61,7 +92,10 @@ const ProductPage = () => {
         </div>
         <div>
           {product.countInStock > 0 && (
-            <Button className="hover:bg-secondary hover:text-primary">
+            <Button
+              onClick={addToCartHandler}
+              className="hover:bg-secondary hover:text-primary"
+            >
               Add to Cart
             </Button>
           )}
