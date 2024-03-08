@@ -2,6 +2,7 @@ import React from "react";
 import { NavItems } from "../type/NavItems";
 import { ModeToggle } from "./mode-toggle";
 import CartLabel from "./CartLabel";
+import { Link } from "react-router-dom";
 const navItems: NavItems[] = [
   { id: 1, label: "Home" },
   { id: 2, label: "Products" },
@@ -20,9 +21,9 @@ const Navbar = () => {
   return (
     <header className="w-full h-20 flex justify-center border-b-2  shadow-lg items-center">
       <nav className="w-[80%] flex items-center justify-between ">
-        <div className="text-2xl font-bold ">
+        <Link to="/" className="text-2xl font-bold ">
           <p>KE-commerce</p>
-        </div>
+        </Link>
         <ul className="style-none flex sm:gap-3 lg:gap-10">{navList}</ul>
         <ul className="style-none flex sm:gap-3 lg:gap-10">
           <ModeToggle />

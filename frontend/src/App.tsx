@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { Outlet } from "react-router-dom";
 import { StoreProvider } from "./Store";
+import { Toaster } from "./component/ui/toaster";
 function App() {
   return (
     <StoreProvider>
@@ -14,6 +15,7 @@ function App() {
           <Outlet />
         </main>
 
+        <Toaster />
         <Footer />
       </div>
     </StoreProvider>

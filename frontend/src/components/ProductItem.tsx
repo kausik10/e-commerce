@@ -1,4 +1,4 @@
-import { React, useContext } from "react";
+import React, { useContext } from "react";
 import {
   Card,
   CardContent,
@@ -14,6 +14,7 @@ import { CartItem } from "../type/Cart";
 import { Product } from "../type/Product";
 import { Link } from "react-router-dom";
 import Rating from "./Rating";
+import { toast } from "@/component/ui/use-toast";
 
 const ProductItem = ({ product }: { product: Product }) => {
   const { state, dispatch } = useContext(Store);
@@ -31,6 +32,11 @@ const ProductItem = ({ product }: { product: Product }) => {
     dispatch({
       type: "ADD_TO_CART",
       payload: { ...item, quantity },
+    });
+    toast({
+      variant: "success",
+      title: "Added to Cart",
+      description: "The product has been added to the cart",
     });
   };
   return (
