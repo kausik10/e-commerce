@@ -9,6 +9,8 @@ import { HelmetProvider } from "react-helmet-async";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./components/theme-provider.tsx";
+import { StoreProvider } from "./Store.tsx";
+import CartPage from "./pages/CartPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,10 @@ const router = createBrowserRouter([
         path: "product/:slug",
         element: <ProductPage />,
       },
+      {
+        path: "cart",
+        element: <CartPage />,
+      },
     ],
   },
 ]);
@@ -31,12 +37,14 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="theme">
-      <HelmetProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </HelmetProvider>
+      <StoreProvider>
+        <HelmetProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
+        </HelmetProvider>
+      </StoreProvider>
     </ThemeProvider>
   </React.StrictMode>,
 );

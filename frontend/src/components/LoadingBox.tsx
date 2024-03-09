@@ -13,9 +13,7 @@ const LoadingBox = () => {
         borderRadius: "50%",
         boxSizing: "border-box",
       }}
-    >
-      Loading...
-    </motion.div>
+    ></motion.div>
   );
 };
 
