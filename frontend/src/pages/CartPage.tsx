@@ -46,6 +46,9 @@ const CartPage = () => {
   const checkOutHandler = () => {
     navigate("/login?redirect=/shipping");
   };
+  const removeItemHandler = (item: CartItem) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: item });
+  };
   return (
     <div className="flex flex-col lg:w-full ">
       <Helmet>
@@ -117,11 +120,9 @@ const CartPage = () => {
                   </div>
                   <div>
                     <Button
-                      className="  border-none"
+                      className="border-none"
                       variant="outline"
-                      onClick={() =>
-                        dispatch({ type: "REMOVE_FROM_CART", payload: item })
-                      }
+                      onClick={() => removeItemHandler(item)}
                     >
                       <Trash2 />
                     </Button>
