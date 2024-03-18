@@ -24,7 +24,9 @@ const initialState: AppState = {
   },
 };
 
-type Action = { type: "ADD_TO_CART"; payload: CartItem };
+type Action =
+  | { type: "ADD_TO_CART"; payload: CartItem }
+  | { type: "REMOVE_FROM_CART"; payload: CartItem };
 
 function reducer(state: AppState, action: Action): AppState {
   let newItem, existItem, cartItems;
@@ -32,15 +34,21 @@ function reducer(state: AppState, action: Action): AppState {
     case "ADD_TO_CART":
       newItem = action.payload;
       existItem = state.cart.cartItems.find(
-        (item: CartItem) => item._id === newItem._id,
+        (item: CartItem) => item._id === newItem._id
       );
       cartItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
-            item._id === existItem._id ? newItem : item,
+            item._id === existItem._id ? newItem : item
           )
         : [...state.cart.cartItems, newItem];
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
+      return { ...state, cart: { ...state.cart, cartItems } };
+    case "REMOVE_FROM_CART":
+      cartItems = state.cart.cartItems.filter(
+        (item: CartItem) => item._id !== action.payload._id
+      );
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
     default:
       return state;
@@ -54,7 +62,7 @@ const Store = React.createContext({
 function StoreProvider(props: StoreProviderProps) {
   const [state, dispatch] = React.useReducer<React.Reducer<AppState, Action>>(
     reducer,
-    initialState,
+    initialState
   );
 
   return <Store.Provider value={{ state, dispatch }} {...props} />;

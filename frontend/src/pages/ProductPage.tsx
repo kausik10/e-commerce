@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Badge } from "@/component/ui/badge";
 import LoadingBox from "@/components/LoadingBox";
-import MessageBox from "@/components/MessageBox";
+
 import Rating from "@/components/Rating";
 import { useGetProductDetailsBySlugQuery } from "@/hooks/productHooks";
 import { ApiError } from "@/type/ApiErros";
@@ -12,6 +12,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Store } from "@/Store";
 import { convertProductToCartItem } from "../utils";
 import { toast } from "@/component/ui/use-toast";
+import { Alert } from "@/component/ui/alert";
 
 const ProductPage = () => {
   const params = useParams();
@@ -53,9 +54,9 @@ const ProductPage = () => {
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
-    <MessageBox variant="danger">{getError(error as ApiError)}</MessageBox>
+    <Alert variant="destructive">{getError(error as ApiError)}</Alert>
   ) : !product ? (
-    <MessageBox variant="danger">Product Not Found</MessageBox>
+    <Alert variant="destructive">Product Not Found</Alert>
   ) : (
     <div className="mt-3 flex flex-row sm:justify-start items-start sm:flex-1 md:flex-2 lg:flex-3  gap-5 ">
       <div>
