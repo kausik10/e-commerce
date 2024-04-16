@@ -4,22 +4,10 @@ import { Store } from "@/Store";
 import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  AlertDialog,
-  AlertDialogFooter,
-  AlertDialogHeader,
-} from "@/component/ui/alert-dialog";
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@radix-ui/react-alert-dialog";
 import { Button } from "@/component/ui/button";
 import { Card } from "@/component/ui/card";
 import { Trash2 } from "lucide-react";
+import AlertCartEmpty from "../components/AlertCartEmpty";
 
 const CartPage = () => {
   const navigate = useNavigate();
@@ -58,26 +46,7 @@ const CartPage = () => {
       <div className="flex flex-row gap-3   justify-start mt-3 items-start">
         <div className="flex flex-col gap-3 w-full ">
           {cartItems.length === 0 ? (
-            <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="outline">Cart Empty</Button>
-              </AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Nothing in Cart</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    There is nothing ini your cart. Please visit the Products
-                    page and Add items to cart. Visit Products page ?
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => navigate("/")}>
-                    Continue
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+            <AlertCartEmpty />
           ) : (
             <div className="flex flex-col  gap-5 items-start justify-between ">
               {cartItems.map((item: CartItem) => (
@@ -115,7 +84,7 @@ const CartPage = () => {
                       onClick={() => updateCartHandler(item, item.quantity + 1)}
                       disabled={item.quantity === item.countInStock}
                     >
-                      <i className="fsa fa-plus-circle"></i>
+                      <i className="fas fa-plus-circle"></i>
                     </Button>
                   </div>
                   <div>

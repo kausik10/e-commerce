@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { mongoose } from "@typegoose/typegoose";
 import { productRouter } from "./routers/productRouter";
+import { userRouter } from "./routers/userRouter";
 import { seedRouter } from "./routers/seedRouter";
 dotenv.config();
 
@@ -27,8 +28,11 @@ app.use(
     origin: ["http://localhost:3000"],
   }),
 );
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", productRouter);
+app.use("/api/users", userRouter);
 app.use("/api/seed", seedRouter);
 
 const PORT = 4000;
