@@ -2,6 +2,7 @@ import React from "react";
 import { NavItems } from "../type/NavItems";
 import { ModeToggle } from "./mode-toggle";
 import CartLabel from "./CartLabel";
+import SignInInfo from "./SignInInfo";
 import { Link } from "react-router-dom";
 const navItems: NavItems[] = [
   { id: 1, label: "Home" },
@@ -28,9 +29,10 @@ const Navbar = () => {
         <ul className="style-none flex sm:gap-3 lg:gap-10">
           <ModeToggle />
           <CartLabel />
-          <a className="text-blue-400 text-lg font-semibold hover:underline hover:text-blue-300 cursor-pointer">
-            Sign In
-          </a>
+          <SignInInfo />
+          {/* <a className="text-blue-400 text-lg font-semibold hover:underline hover:text-blue-300 cursor-pointer"> */}
+          {/*   Sign In */}
+          {/* </a> */}
         </ul>
       </nav>
     </header>
