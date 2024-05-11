@@ -11,6 +11,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "./components/theme-provider.tsx";
 import { StoreProvider } from "./Store.tsx";
 import CartPage from "./pages/CartPage.tsx";
+import SignIn from "./pages/SignIn.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <CartPage />,
+      },
+      {
+        path: "signin",
+        element: <SignIn />,
       },
     ],
   },
