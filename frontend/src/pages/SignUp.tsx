@@ -6,6 +6,7 @@ import { useSignupMutation } from "@/hooks/userHooks";
 import { ApiError } from "@/type/ApiErros";
 import { getError } from "@/utils";
 import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 export default function SignUp() {
   const navigate = useNavigate();
@@ -59,9 +60,12 @@ export default function SignUp() {
 
   return (
     <>
+      <Helmet>
+        <title>Sign Up</title>
+      </Helmet>
       <div className="flex flex-1 justify-center items-center h-screen ">
         <form
-          className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col "
+          className="shadow-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col "
           onSubmit={submitHandler}
         >
           <h2 className="text-2xl mb-4 font-bold text-gray-800 text-center">
