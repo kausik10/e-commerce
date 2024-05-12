@@ -1,5 +1,5 @@
 import React from "react";
-import { Cart, CartItem } from "./type/Cart";
+import { Cart, CartItem, ShippingAddress } from "./type/Cart";
 import { UserInfo } from "./type/UserInfo";
 
 type AppState = {
@@ -33,7 +33,8 @@ type Action =
   | { type: "ADD_TO_CART"; payload: CartItem }
   | { type: "REMOVE_FROM_CART"; payload: CartItem }
   | { type: "USER_SIGNIN"; payload: UserInfo }
-  | { type: "USER_SIGNOUT" };
+  | { type: "USER_SIGNOUT" }
+  | { type: "SHIPPING_ADDRESS"; payload: ShippingAddress };
 
 function reducer(state: AppState, action: Action): AppState {
   let newItem: CartItem;
@@ -47,8 +48,8 @@ function reducer(state: AppState, action: Action): AppState {
       );
       cartItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
-            item._id === existItem._id ? newItem : item,
-          )
+          item._id === existItem._id ? newItem : item,
+        )
         : [...state.cart.cartItems, newItem];
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
@@ -78,6 +79,14 @@ function reducer(state: AppState, action: Action): AppState {
           shippingPrice: 0,
           taxPrice: 0,
           totalPrice: 0,
+        },
+      };
+    case "SHIPPING_ADDRESS":
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          shippingAddress: action.payload,
         },
       };
     default:

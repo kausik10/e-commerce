@@ -12,6 +12,8 @@ import { ThemeProvider } from "./components/theme-provider.tsx";
 import { StoreProvider } from "./Store.tsx";
 import CartPage from "./pages/CartPage.tsx";
 import SignIn from "./pages/SignIn.tsx";
+import SignUp from "./pages/SignUp.tsx";
+import ShippingAddressPage from "./pages/ShippingAddress.tsx";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: "signin",
         element: <SignIn />,
+      },
+      {
+        path: "signup",
+        element: <SignUp />,
+      },
+      {
+        path: "shipping",
+        element: <ShippingAddressPage />,
       },
     ],
   },

@@ -9,7 +9,7 @@ export type CartItem = {
 };
 
 export type ShippingAddress = {
-  fullname: string;
+  fullName: string;
   address: string;
   city: string;
   postalCode: string;

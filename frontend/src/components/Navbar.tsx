@@ -1,4 +1,3 @@
-import React from "react";
 import { NavItems } from "../type/NavItems";
 import { ModeToggle } from "./mode-toggle";
 import CartLabel from "./CartLabel";
