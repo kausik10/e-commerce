@@ -34,7 +34,8 @@ type Action =
   | { type: "REMOVE_FROM_CART"; payload: CartItem }
   | { type: "USER_SIGNIN"; payload: UserInfo }
   | { type: "USER_SIGNOUT" }
-  | { type: "SHIPPING_ADDRESS"; payload: ShippingAddress };
+  | { type: "SHIPPING_ADDRESS"; payload: ShippingAddress }
+  | { type: "SAVE_PAYMENT_METHOD"; payload: string };
 
 function reducer(state: AppState, action: Action): AppState {
   let newItem: CartItem;
@@ -48,8 +49,8 @@ function reducer(state: AppState, action: Action): AppState {
       );
       cartItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
-          item._id === existItem._id ? newItem : item,
-        )
+            item._id === existItem._id ? newItem : item,
+          )
         : [...state.cart.cartItems, newItem];
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
@@ -88,6 +89,11 @@ function reducer(state: AppState, action: Action): AppState {
           ...state.cart,
           shippingAddress: action.payload,
         },
+      };
+    case "SAVE_PAYMENT_METHOD":
+      return {
+        ...state,
+        cart: { ...state.cart, paymentMethod: action.payload },
       };
     default:
       return state;
