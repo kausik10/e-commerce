@@ -14,6 +14,7 @@ import CartPage from "./pages/CartPage.tsx";
 import SignIn from "./pages/SignIn.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import ShippingAddressPage from "./pages/ShippingAddress.tsx";
+import PaymentMethod from "./pages/PaymentMethod.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "shipping",
         element: <ShippingAddressPage />,
+      },
+      {
+        path: "payment",
+        element: <PaymentMethod />,
       },
     ],
   },
