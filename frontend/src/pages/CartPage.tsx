@@ -1,7 +1,7 @@
 import { toast } from "@/component/ui/use-toast";
 import { CartItem } from "@/type/Cart";
 import { Store } from "@/Store";
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/component/ui/button";

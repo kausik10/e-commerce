@@ -1,4 +1,3 @@
-import React from "react";
 import ProductItem from "../components/ProductItem";
 import LoadingBox from "../components/LoadingBox";
 import { Helmet } from "react-helmet-async";

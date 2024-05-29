@@ -32,6 +32,7 @@ const initialState: AppState = {
 type Action =
   | { type: "ADD_TO_CART"; payload: CartItem }
   | { type: "REMOVE_FROM_CART"; payload: CartItem }
+  | { type: "CART_CLEAR" }
   | { type: "USER_SIGNIN"; payload: UserInfo }
   | { type: "USER_SIGNOUT" }
   | { type: "SHIPPING_ADDRESS"; payload: ShippingAddress }
@@ -49,8 +50,8 @@ function reducer(state: AppState, action: Action): AppState {
       );
       cartItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
-            item._id === existItem._id ? newItem : item,
-          )
+          item._id === existItem._id ? newItem : item,
+        )
         : [...state.cart.cartItems, newItem];
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
 
@@ -61,6 +62,11 @@ function reducer(state: AppState, action: Action): AppState {
       );
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
+    case "CART_CLEAR":
+      return {
+        ...state,
+        cart: { ...state.cart, cartItems: [] },
+      };
     case "USER_SIGNIN":
       return { ...state, userInfo: action.payload };
     case "USER_SIGNOUT":

@@ -5,6 +5,7 @@ import { mongoose } from "@typegoose/typegoose";
 import { productRouter } from "./routers/productRouter";
 import { userRouter } from "./routers/userRouter";
 import { seedRouter } from "./routers/seedRouter";
+import { orderRouter } from "./routers/orderRouter";
 dotenv.config();
 
 const MONGODB_URI =
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/products", productRouter);
 app.use("/api/users", userRouter);
+app.use("/api/order", orderRouter);
 app.use("/api/seed", seedRouter);
 
 const PORT = 4000;
