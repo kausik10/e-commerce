@@ -15,6 +15,9 @@ import SignIn from "./pages/SignIn.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import ShippingAddressPage from "./pages/ShippingAddress.tsx";
 import PaymentMethod from "./pages/PaymentMethod.tsx";
+import ProtectedRoute from "./components/ProtectedRoute.tsx";
+import PlaceOrder from "./pages/PlaceOrder.tsx";
+import OrderPage from "./pages/OrderPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -42,12 +45,26 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
-        path: "shipping",
-        element: <ShippingAddressPage />,
-      },
-      {
-        path: "payment",
-        element: <PaymentMethod />,
+        path: "",
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "shipping",
+            element: <ShippingAddressPage />,
+          },
+          {
+            path: "payment",
+            element: <PaymentMethod />,
+          },
+          {
+            path: "placeorder",
+            element: <PlaceOrder />,
+          },
+          {
+            path: "order/:id",
+            element: <OrderPage />,
+          },
+        ],
       },
     ],
   },
