@@ -20,6 +20,25 @@ export const userOrderDetailQuery = (id: string) =>
     queryFn: async () => (await apiClient.get<Order>(`api/order/${id}`)).data,
   });
 
+
+  export const useGetPaypalClientIdQuery = () =>
+    useQuery({
+      queryKey: ['paypal-clientId'],
+      queryFn: async () =>
+        (await apiClient.get<{ clientId: string }>(`/api/keys/paypal`)).data,
+    })
+  
+  export const usePayOrderMutation = () =>
+    useMutation({
+      mutationFn: async (details: { orderId: string }) =>
+        (
+          await apiClient.put<{ order: Order; message: string }>(
+            `api/orders/${details.orderId}/pay`,
+            details
+          )
+        ).data,
+    })
+
 export const userCreateOrderMutation = () =>
   useMutation({
     mutationFn: async (order: OrderType) =>
