@@ -52,6 +52,10 @@ export default function SignInInfo() {
               >
                 Sign Out{" "}
               </Link>
+              <DropdownMenuSeparator />
+              <Link className="ml-8 text-xs font-semibold  hover:text-gray-500 cursor-pointer"
+                to="/orderhistory"
+               >Order History {" "}</Link>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -16,7 +16,7 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
 
-import { toast } from "@/component/ui/use-toast";
+import { toast, useToast } from "@/component/ui/use-toast";
 import LoadingBox from "@/components/LoadingBox";
 import { useGetPaypalClientIdQuery, usePayOrderMutation, userOrderDetailQuery } from "@/hooks/orderHooks";
 import { ApiError } from "@/type/ApiErros";
@@ -30,6 +30,7 @@ export default function OrderPage() {
   const { state } = useContext(Store);
   const { userInfo } = state;
 
+  const {toast} = useToast();
   const params = useParams();
   const { id: orderId } = params;
 
@@ -38,8 +39,8 @@ export default function OrderPage() {
   const {mutateAsync: payOrder, isLoading: loadingPayment} = usePayOrderMutation();
 
   // for development mode only 
-  const testPayHandler = async() => {
-    await payOrder({orderId: orderId!});
+  const testPayHandler = async () => {
+     await payOrder({orderId: orderId!});
     refetch();
     toast({
       title: "Success",
@@ -78,7 +79,9 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
         purchase_units: [
           {
             amount: {
+              
               value: order!.totalPrice.toString(),
+             
             },
           },
         ],
@@ -105,7 +108,7 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
       }
     })
   },
-  onError: (err: Error) => {
+  onError: (err) => {
     toast({
       title: "Failed",
       variant: "destructive",
@@ -117,26 +120,32 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
   return isLoading ? (
     <LoadingBox />
   ) : error ? (
-    toast({
-      title: "Error",
-      variant: "destructive",
-      description: getError(error as ApiError),
-    })
+    // toast({
+    //   title: "Error",
+    //   variant: "destructive",
+    //   description: getError(error as ApiError),
+    // })
+    <Alert variant="destructive">
+      Error: {getError(error as ApiError)}
+    </Alert>
   ) : !order ? (
-    toast({
-      title: "Error",
-      variant: "destructive",
-      description: "Order not found",
-    })
+    // toast({
+    //   title: "Error",
+    //   variant: "destructive",
+    //   description: "Order not found",
+    // })
+    <Alert variant="destructive">
+      Error: Order not found
+    </Alert>
   ) : (
     <>
-    <div>
+    <div className="w-full">
       <Helmet>
         <title>Order {orderId}</title>
       </Helmet>
       <h1 className="my-3">Order {orderId}</h1>
       <div className="flex flex-row gap-5">
-        <div className="flex flex-col justify-between gap-3">
+        <div className="flex flex-col w-full gap-3">
           <Card className="mb-3 mt-3">
             <CardHeader>
               <CardTitle>Shipping</CardTitle>
@@ -164,7 +173,7 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
             </CardContent>
             <CardFooter>
               {order.isPaid ? (
-                <Alert variant="default">{`Order Delivered with order id: ${order.paidAt}`}</Alert>
+                <Alert variant="default">{`Order Paid at: ${order.paidAt}`}</Alert>
               ) : (
                 <Alert variant="destructive">{`Payment not received`} </Alert>
               )}
@@ -212,34 +221,34 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
             </CardFooter>
           </Card>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col w-[40%]">
           <Card className="mb-3 mt-3">
             <CardHeader>
               <CardTitle>Order Summary</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-[1fr,1fr] gap-3">
+              <div className="flex justify-between p-2 ">
                 <div className="flex flex-col"> Items</div>
                 <div className="flex flex-col">
                   {" "}
                   ${order.itemPrice.toFixed(2)}
                 </div>
               </div>
-              <div className="grid grid-cols-[1fr,1fr] gap-3">
+              <div className="flex justify-between p-2">
                 <div className="flex flex-col"> Shipping</div>
                 <div className="flex flex-col">
                   {" "}
                   ${order.shippingPrice.toFixed(2)}
                 </div>
               </div>
-              <div className="grid grid-cols-[1fr,1fr] gap-3">
+              <div className="flex justify-between p-2">
                 <div className="flex flex-col"> Tax</div>
                 <div className="flex flex-col">
                   {" "}
                   ${order.taxPrice.toFixed(2)}
                 </div>
               </div>
-              <div className="grid grid-cols-[1fr,1fr] gap-3">
+              <div className="flex justify-between p-2">
                 <div className="flex flex-col">
                   {" "}
                   <strong>Order Total</strong>
@@ -249,8 +258,8 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
                   ${order.totalPrice.toFixed(2)}
                 </div>
               </div>
+              {!order.isPaid && (
               <div className="grid grid-cols-[1fr, 1fr] gap-3">
-                {!order.isPaid && (
                   <div className="flex flex-col">
                     {isPending ? (
                       <LoadingBox />
@@ -264,14 +273,14 @@ const paypalbuttonTransactionProps: PayPalButtonsComponentProps = {
                         {...paypalbuttonTransactionProps}
                       
                       ></PayPalButtons>
-                      <Button onClick={testPayHandler}>Test Pay</Button>
+                      <Button className="w-full" onClick={testPayHandler}>Test Pay</Button>
                       </div>
                     )}
                   </div>
-                )}
                 {loadingPayment && <LoadingBox />}
 
               </div>
+                )}
             </CardContent>
           </Card>
         </div>
