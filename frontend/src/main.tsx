@@ -18,6 +18,7 @@ import PaymentMethod from "./pages/PaymentMethod.tsx";
 import ProtectedRoute from "./components/ProtectedRoute.tsx";
 import PlaceOrder from "./pages/PlaceOrder.tsx";
 import OrderPage from "./pages/OrderPage.tsx";
+import OrderHistoryPage from "./pages/OrderHistoryPage.tsx";
 
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
@@ -63,8 +64,12 @@ const router = createBrowserRouter([
             element: <PlaceOrder />,
           },
           {
-            path: "order/:id",
+            path: "/order/:id",
             element: <OrderPage />,
+          },
+          {
+            path: "/orderhistory",
+            element: <OrderHistoryPage />,
           },
         ],
       },
@@ -77,7 +82,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider defaultTheme="light" storageKey="theme">
       <StoreProvider>
-        <PayPalScriptProvider options={{ "client-id": "sb" }} deferLoading={true}>
+        <PayPalScriptProvider options={{ "clientId": "sb" }} deferLoading={true}>
 
         <HelmetProvider>
           <QueryClientProvider client={queryClient}>

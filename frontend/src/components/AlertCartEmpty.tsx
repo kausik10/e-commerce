@@ -7,15 +7,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
+  
 } from "@/component/ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
 
 const AlertCartEmpty = () => {
   const navigate = useNavigate();
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>Cart Empty</AlertDialogTrigger>
+    <AlertDialog defaultOpen>
+      {/* <AlertDialogTrigger>Cart Empty</AlertDialogTrigger> */}
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Nothing in Cart.</AlertDialogTitle>

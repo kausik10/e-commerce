@@ -1,7 +1,7 @@
 import { toast } from "@/component/ui/use-toast";
 import { CartItem } from "@/type/Cart";
 import { Store } from "@/Store";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/component/ui/button";
@@ -17,6 +17,14 @@ const CartPage = () => {
     },
     dispatch,
   } = useContext(Store);
+
+
+  const [isCartEmpty, setIsCartEmpty] = useState(cartItems.length === 0);
+  
+  useEffect(() => {
+    setIsCartEmpty(cartItems.length === 0);
+  }, [cartItems]);
+
   const updateCartHandler = (item: CartItem, quantity: number) => {
     if (item.countInStock < quantity) {
       toast({
@@ -37,7 +45,16 @@ const CartPage = () => {
   const removeItemHandler = (item: CartItem) => {
     dispatch({ type: "REMOVE_FROM_CART", payload: item });
   };
+
+  if (isCartEmpty) {
+    return (
+      <AlertCartEmpty />
+    );
+  }
+
   return (
+    <>
+    
     <div className="flex flex-col lg:w-full ">
       <Helmet>
         <title>Shopping Cart</title>
@@ -45,9 +62,7 @@ const CartPage = () => {
       <h1 className=" mb-2 font-semibold text-4xl">Shopping Cart</h1>
       <div className="flex flex-row gap-3   justify-start mt-3 items-start">
         <div className="flex flex-col gap-3 w-full ">
-          {cartItems.length === 0 ? (
-            <AlertCartEmpty />
-          ) : (
+      
             <div className="flex flex-col  gap-5 items-start justify-between ">
               {cartItems.map((item: CartItem) => (
                 <div
@@ -99,7 +114,7 @@ const CartPage = () => {
                 </div>
               ))}
             </div>
-          )}
+          
         </div>
         {cartItems.length > 0 && (
           <Card className="m-1 p-2 w-[40%] ">
@@ -128,6 +143,9 @@ const CartPage = () => {
         )}
       </div>
     </div>
+
+     
+      </>
   );
 };
 export default CartPage;

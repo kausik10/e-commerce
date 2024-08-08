@@ -1,9 +1,18 @@
 import express, { Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import { isAuth } from "../utils";
-import { OrderModel } from "../model/orderModel";
+import { Order, OrderModel } from "../model/orderModel";
 import { Product } from "../model/productModel";
 export const orderRouter = express.Router();
+
+orderRouter.get(
+  "/mine",
+  isAuth,
+  expressAsyncHandler(async (req: Request, res: Response) => {
+    const orders = await OrderModel.find({user: req.user._id});  
+    res.json(orders);
+  })
+)
 
 orderRouter.get(
   // /api/order/:id
@@ -39,7 +48,7 @@ orderRouter.post(
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
         user: req.user._id,
-      });
+      } as Order)
 
       res
         .status(201)
@@ -50,7 +59,7 @@ orderRouter.post(
 
 
 orderRouter.put(
-  ':id/pay',
+  '/:id/pay',
   isAuth,
   expressAsyncHandler(async (req: Request, res: Response) => {
     const order = await OrderModel.findById(req.params.id).populate('user');
@@ -68,7 +77,7 @@ orderRouter.put(
       const updatedOrder = await order.save();
       res.send({order: updatedOrder, message: 'Order Paid Succesfully'});
     }else {
-      res.status(404).send({message: 'Order Not Found'})
+      res.status(404).json({message: 'Order Not Found'})
     }
 })
 );

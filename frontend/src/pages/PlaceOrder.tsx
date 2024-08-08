@@ -74,10 +74,10 @@ export default function PlaceOrder() {
       </Helmet>
       <div className="w-full">
         <CheckoutSteps step1 step2 step3 step4 />
-        <div className="flex flex-col">
+        <div className="flex flex-col ">
           <h1 className="font-bold text-black text-2xl">Preview Order</h1>
           <div className="flex flex-row gap-5">
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-3 w-full">
               <Card className="mb-3 mt-3">
                 <CardHeader>
                   <CardTitle>Shipping</CardTitle>
@@ -157,7 +157,7 @@ export default function PlaceOrder() {
                 </CardFooter>
               </Card>
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col w-[40%]">
               <Card className="mb-3 mt-3">
                 <CardHeader>
                   <CardTitle>Order Summary</CardTitle>
