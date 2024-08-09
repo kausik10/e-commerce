@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -23,12 +23,20 @@ import OrderHistoryPage from "./pages/OrderHistoryPage.tsx";
 import { PayPalScriptProvider } from '@paypal/react-paypal-js'
 
 const router = createBrowserRouter([
+  
   {
-    path: "/",
+    
+    path: "/", 
     element: <App />,
+
+
     children: [
       {
         index: true,
+        element: <Navigate to="/home" replace/>,
+      },
+      {
+        path: "home",
         element: <Homepage />,
       },
       {

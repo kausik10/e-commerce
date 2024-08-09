@@ -74,3 +74,41 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* header
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+}
+Link.header-link,
+.header-link > Link {
+  border: 1px rgb(33,37,41) solid;
+  border-radius: 2px;
+  color: white !important;
+  font-weight: bold;
+}
+Link.header-link:hover,
+.header-link > Link:hover {
+  color: white;
+  border: 1px white solid;
+}
+
+.header .dropdown-menu,
+.header .dropdown-item {
+  color: black !important;
+  background-color: white;
+}
+.header .dropdown-item Link:hover {
+  border: 1px rgb(33, 37, 41) solid;
+}
+.sub-header {
+  background-color: #232f3e;
+}
+
+.cart-badge {
+  position: absolute;
+  color: #f08000;
+  font-weight: bold;
+  margin-left: 16px;
+  margin-top: -3px;
+} */
